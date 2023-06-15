@@ -1,0 +1,1 @@
+IDRViewer.config = {"pagecount":1,"title":"","author":"Poonam 2387","subject":"","keywords":"","creator":"Microsoft® Word 2016","producer":"www.ilovepdf.com","creationdate":"D:20230517180419Z","moddate":"D:20230603132506+05'30'","trapped":"","fileName":"Offer_Letter.pdf","bounds":[[935,1210]],"bookmarks":[],"thumbnailType":"jpg","pageType":"html","pageLabels":[]};

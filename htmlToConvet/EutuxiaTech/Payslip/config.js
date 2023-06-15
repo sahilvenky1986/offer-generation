@@ -1,0 +1,1 @@
+IDRViewer.config = {"pagecount":1,"title":"","author":"shanat shukla","subject":"","keywords":"","creator":"Microsoft® Word 2016","producer":"3.0.0.M10 (5.0.0.M6) ","creationdate":"D:20230517164921Z","moddate":"D:20230603133421+05'30'","trapped":"","fileName":"Payslip.pdf","bounds":[[912,1287]],"bookmarks":[],"thumbnailType":"jpg","pageType":"html","pageLabels":[]};
