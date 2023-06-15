@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Offer Form</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+     function formatNumber(num) {
+      return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    }
+
+    function calculate() {
+      var fixedSalary = parseInt($('#fixed_salary').val().replace(/,/g, ''), 10);
+      var basicDA = Math.round(fixedSalary * 0.4565);
+      var HRA = Math.round(fixedSalary * 0.1826);
+      var specialAllowances = Math.round(fixedSalary * 0.3608);
+      var finalFixedSalary = basicDA + HRA + specialAllowances;
+      var delta = fixedSalary - finalFixedSalary;
+      var performanceBonus = 50000;
+      var totalGrossSalary = finalFixedSalary + performanceBonus;
+      $('#total_gross_salary').val(formatNumber(totalGrossSalary));
+      $('#basic_da').val(formatNumber(basicDA));
+      $('#hra').val(formatNumber(HRA));
+      $('#special_allowances').val(formatNumber(specialAllowances));
+      $('#performance_bonus').val(formatNumber(performanceBonus));
+      $('#final_fixed_salary').val(formatNumber(finalFixedSalary));
+      $('#delta_message').text("Note: A delta of " + formatNumber(delta) + " exists due to rounding.");
+    }
+    </script>
+</head>
+<body>
+
+    <div class="container">
+        <h1 class="text-center my-5">Job Offer Form</h1>
+        <form action="/mindmatrixOffer.php" method="POST">
+            <div class="form-group">
+                <label for="candidateName">Candidate Name:</label>
+                <input type="text" class="form-control" id="candidateName" name="candidateName" required>
+            </div>
+            <div class="form-group">
+                <label for="doj">Date of offer:</label>
+                <input type="date" class="form-control" id="offerdate" name="offerdate" required>
+            </div>
+            <div class="form-group">
+                <label for="doj">Date of Joining:</label>
+                <input type="date" class="form-control" id="doj" name="doj" required>
+            </div>
+            <div class="form-group">
+                <label for="jobTitle">Job Title:</label>
+                <input type="text" class="form-control" id="jobTitle" name="jobTitle" required>
+            </div>
+            <div class="form-group">
+                <label for="empCode">Employee Code :</label>
+                <input type="text" class="form-control" id="empCode" name="empCode" required>
+            </div>
+         <!--   
+
+            <div class="form-group">
+                <label for="companyName">Company Name:</label>
+                <input type="text" class="form-control" id="companyName" name="companyName" required>
+            </div>
+            <div class="form-group">
+                <label for="companyAddress">Company Address:</label>
+                <textarea class="form-control" id="companyAddress" name="companyAddress" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="signatureAuthority">Signature Authority Name:</label>
+                <input type="text" class="form-control" id="signatureAuthority" name="signatureAuthority">
+            </div>
+            <div class="form-group">
+                <label for="yearlyPackage">Yearly Package:</label>
+                <input type="number" class="form-control" id="yearlyPackage" name="yearlyPackage">
+            </div>
+            <div class="form-group">
+                <label for="yearlyPackageWords">Yearly Package (in words):</label>
+                <input type="text" class="form-control" id="yearlyPackageWords" name="yearlyPackageWords" readonly>
+            </div>
+ -->     
+ <label for="fixed_salary">Fixed Salary:</label><br>
+ <input type="text" id="fixed_salary" name="fixed_salary" oninput="calculate()"><br>
+ <label for="total_gross_salary">Total Gross Salary:</label><br>
+ <input type="text" id="total_gross_salary" name="total_gross_salary" readonly><br>
+ <label for="basic_da">Basic + DA:</label><br>
+ <input type="text" id="basic_da" name="basic_da" readonly><br>
+ <label for="hra">HRA:</label><br>
+ <input type="text" id="hra" name="hra" readonly><br>
+ <label for="special_allowances">Special Allowances:</label><br>
+ <input type="text" id="special_allowances" name="special_allowances" readonly><br>
+ <label for="performance_bonus">Performance Bonus:</label><br>
+ <input type="text" id="performance_bonus" name="performance_bonus" value="50,000" readonly><br>
+ <label for="final_fixed_salary">Final Fixed Salary:</label><br>
+ <input type="text" id="final_fixed_salary" name="final_fixed_salary" readonly><br>
+ <p id="delta_message"></p>
+
+
+ <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <!-- Bootstrap JS and jQuery -->
+    <script>
+        	  
+
+	  const yearlyPackageInput = document.getElementById('yearlyPackage');
+const yearlyPackageWordsInput = document.getElementById('yearlyPackageWords');
+
+yearlyPackageInput.addEventListener('input', function() {
+    const yearlyPackage = parseFloat(yearlyPackageInput.value);
+    const yearlyPackageWords = numberToWords(yearlyPackage);
+    yearlyPackageWordsInput.value = yearlyPackageWords;
+});
+
+    
+function numberToWords(num) {
+    const units = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'];
+    const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+    const teens = ['Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+
+    if (num === 0) {
+        return 'Zero';
+    }
+
+    let words = '';
+
+    if (num >= 10000000) {
+        words += numberToWords(Math.floor(num / 10000000)) + ' Crore ';
+        num %= 10000000;
+    }
+
+    if (num >= 100000) {
+        words += numberToWords(Math.floor(num / 100000)) + ' Lakh ';
+        num %= 100000;
+    }
+
+    if (num >= 1000) {
+        words += numberToWords(Math.floor(num / 1000)) + ' Thousand ';
+        num %= 1000;
+    }
+
+    if (num >= 100) {
+        words += numberToWords(Math.floor(num / 100)) + ' Hundred ';
+        num %= 100;
+    }
+
+    if (num >= 10 && num <= 19) {
+        words += teens[num - 10] + ' ';
+    } else if (num >= 20 || num === 0) {
+        words += tens[Math.floor(num / 10)] + ' ';
+        num %= 10;
+    }
+
+    if (num >= 1 && num <= 9) {
+        words += units[num] + ' ';
+    }
+
+    return words.trim();
+}
+
+    </script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>
